@@ -8,6 +8,7 @@
   "github": 1,
   "guide": 5,
   "tailwind": 3,
+  "hello": 1,
   "holiday": 1,
   "canada": 1,
   "images": 2,
@@ -15,12 +16,12 @@
   "writings": 1,
   "book": 1,
   "reflection": 1,
-  "multi-author": 1,
   "tutorial": 2,
   "nextjs": 2,
   "mdx": 2,
   "opencode": 1,
   "web-development": 1,
   "project-planning": 1,
-  "blogging": 1
+  "blogging": 1,
+  "multi-author": 1
 }
