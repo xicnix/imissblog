@@ -1,0 +1,301 @@
+---
+title: 'Building a Personal Blog with OpenCode: A Complete Guide'
+date: '2026-01-25'
+lastmod: '2026-01-25'
+tags: ['OpenCode', 'Next.js', 'Web Development', 'Project Planning']
+draft: false
+summary: 'Follow our journey of building a personal blog from scratch using OpenCode AI assistant. Learn the planning process, technology choices, and implementation steps.'
+---
+
+# Building a Personal Blog with OpenCode
+
+In this post, I'll document our entire process of building a personal blog from scratch using OpenCode, the AI-powered development assistant. This comprehensive guide covers everything from initial planning to final implementation.
+
+## The Planning Process
+
+### Step 1: Defining the Project Scope
+
+We started by creating a structured plan using OpenCode's todo management system. The initial plan included 10 key tasks:
+
+```markdown
+1. Choose technology stack and framework for the blog (High Priority)
+2. Set up project structure and basic configuration (High Priority)
+3. Create basic layout and navigation components (Medium Priority)
+4. Implement blog post listing and detail pages (Medium Priority)
+5. Add content management (create/edit/delete posts) (Medium Priority)
+6. Style the blog with CSS/styling framework (Medium Priority)
+7. Add responsive design for mobile devices (Low Priority)
+8. Implement search and filtering functionality (Low Priority)
+9. Add comments and social sharing features (Low Priority)
+10. Deploy the blog to a hosting platform (Low Priority)
+```
+
+### Step 2: Technology Stack Selection
+
+OpenCode presented us with several technology stack options:
+
+- **Next.js (React)** - Modern React framework with great SEO and performance ✅
+- **Gatsby (React)** - Static site generator optimized for blogs
+- **Hugo (Go)** - Fast static site generator with templates
+- **Jekyll (Ruby)** - GitHub Pages native static site generator
+- **Plain HTML/CSS/JS** - Simple and lightweight approach
+
+We chose **Next.js** for its excellent SEO benefits, performance optimizations, and modern React ecosystem.
+
+## Implementation Journey
+
+### Phase 1: Project Setup
+
+OpenCode helped us initialize the project with:
+
+```bash
+npx create-next-app@latest personal-blog --typescript --tailwind --eslint --app --src-dir --import-alias "@/*"
+```
+
+This single command set up:
+
+- Next.js with TypeScript
+- Tailwind CSS for styling
+- ESLint for code quality
+- App Router structure
+- Proper import aliases
+
+### Phase 2: Core Components
+
+We created three essential components:
+
+#### Header Component
+
+```typescript
+// src/components/Header.tsx
+export default function Header() {
+  return (
+    <header className="w-full border-b border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-900">
+      <div className="mx-auto max-w-4xl px-4 py-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between">
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+            My Blog
+          </h1>
+          <nav className="flex space-x-6">
+            {/* Navigation links */}
+          </nav>
+        </div>
+      </div>
+    </header>
+  );
+}
+```
+
+#### Layout Component
+
+```typescript
+// src/components/Layout.tsx
+import Header from './Header';
+import Footer from './Footer';
+
+export default function Layout({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900">
+      <Header />
+      <main className="flex-grow">
+        {children}
+      </main>
+      <Footer />
+    </div>
+  );
+}
+```
+
+#### Footer Component
+
+Similar structure with social links and copyright information.
+
+### Phase 3: Content Management Strategy
+
+When it came to content management, OpenCode offered several approaches:
+
+1. **File-based (Markdown)** - Store posts as Markdown files ✅
+2. **Database with Admin Panel** - Custom admin interface
+3. **Headless CMS Integration** - External CMS services
+4. **Static JSON Files** - Manage JSON data directly
+
+We chose **File-based Markdown** for its simplicity, version control benefits, and static site generation capabilities.
+
+### Phase 4: Markdown Processing System
+
+OpenCode helped us implement a robust Markdown processing system:
+
+```typescript
+// src/lib/posts.ts
+import fs from 'fs'
+import path from 'path'
+import matter from 'gray-matter'
+import { remark } from 'remark'
+import remarkHtml from 'remark-html'
+
+export function getPostBySlug(slug: string, includeContent = true): Post | undefined {
+  const fullPath = path.join(postsDirectory, `${slug}.md`)
+  const fileContents = fs.readFileSync(fullPath, 'utf8')
+  const { data, content } = matter(fileContents)
+
+  // Process Markdown to HTML
+  const processedMarkdown = remark().use(remarkHtml).processSync(content)
+
+  return {
+    slug,
+    title: data.title,
+    content: processedMarkdown.toString(),
+    // ... other metadata
+  }
+}
+```
+
+## Key Features Implemented
+
+### 1. Dynamic Routing
+
+- `/` - Home page with recent posts
+- `/posts` - All posts listing
+- `/posts/[slug]` - Individual post pages
+- `/about` - About page
+
+### 2. Content Structure
+
+```
+content/
+├── posts/
+│   ├── getting-started-with-nextjs.md
+│   ├── tailwind-css-best-practices.md
+│   └── typescript-for-react-developers.md
+└── authors.json
+```
+
+### 3. Markdown Frontmatter
+
+```yaml
+---
+title: 'Post Title'
+author: 'author-id'
+publishedAt: '2024-01-25'
+tags: ['tag1', 'tag2']
+excerpt: 'Brief description...'
+---
+```
+
+### 4. Author Management
+
+Centralized author information in JSON format with support for:
+
+- Name and bio
+- Social media links
+- Avatar images
+
+## The OpenCode Advantage
+
+### 1. Intelligent Planning
+
+OpenCode's todo system helped us:
+
+- Prioritize tasks effectively
+- Track progress in real-time
+- Break complex features into manageable steps
+
+### 2. Technology Guidance
+
+The AI assistant provided:
+
+- Informed technology recommendations
+- Best practice suggestions
+- Error detection and fixes
+
+### 3. Rapid Prototyping
+
+Features that accelerated development:
+
+- Automatic code generation
+- Component structure suggestions
+- Integration patterns
+
+### 4. Error Handling
+
+OpenCode helped us resolve:
+
+- TypeScript compilation errors
+- Import path issues
+- Build configuration problems
+
+## Performance Optimizations
+
+### Static Site Generation
+
+Our blog uses Next.js's static generation:
+
+```typescript
+export async function generateStaticParams() {
+  const slugs = getAllPostSlugs()
+  return slugs.map((slug) => ({ slug }))
+}
+```
+
+### Code Splitting
+
+Automatic code splitting ensures optimal loading times.
+
+### Image Optimization
+
+Next.js Image component for optimized image delivery.
+
+## Future Enhancements
+
+The remaining tasks in our plan include:
+
+1. **Enhanced Styling** - Custom themes and design system
+2. **Mobile Responsiveness** - Optimized mobile experience
+3. **Search Functionality** - Full-text search capabilities
+4. **Comments System** - User engagement features
+5. **Social Sharing** - Enhanced sharing capabilities
+6. **Deployment** - Production hosting setup
+
+## Lessons Learned
+
+### 1. Planning is Crucial
+
+The structured planning approach saved us time and prevented scope creep.
+
+### 2. Technology Choice Matters
+
+Choosing Next.js provided us with a solid foundation for future growth.
+
+### 3. Content Management Strategy
+
+File-based Markdown offers the best balance of simplicity and power for personal blogs.
+
+### 4. AI-Assisted Development
+
+OpenCode significantly accelerated our development process while maintaining code quality.
+
+## Conclusion
+
+Building a personal blog with OpenCode demonstrated the power of AI-assisted development. From initial planning to final implementation, the process was smooth, efficient, and educational.
+
+The resulting blog is:
+
+- **Fast** - Static site generation
+- **SEO-friendly** - Server-side rendering capabilities
+- **Maintainable** - Clean code structure
+- **Extensible** - Modular component architecture
+- **Content-focused** - Simple Markdown-based workflow
+
+This project showcases how modern AI tools can enhance the development experience, allowing developers to focus on creativity and functionality while the AI handles boilerplate and optimization.
+
+## Next Steps
+
+Ready to start your own blog project? Here's what you need:
+
+1. **Install OpenCode** - Get the AI development assistant
+2. **Plan Your Project** - Use the todo system to structure your approach
+3. **Choose Your Stack** - Let AI guide your technology decisions
+4. **Build Iteratively** - Implement features step by step
+5. **Deploy and Iterate** - Launch and improve over time
+
+The combination of modern web technologies and AI assistance makes building personal projects more accessible than ever before. Happy coding!

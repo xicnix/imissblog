@@ -1,0 +1,229 @@
+---
+title: 'Writing Blog Posts in MDX Format - Complete Guide'
+date: '2026-01-28'
+tags: ['mdx', 'tutorial', 'blogging', 'markdown']
+draft: false
+summary: 'A comprehensive guide to writing MDX blog posts with supported metadata, styling, and CSS rendering features'
+authors: ['default']
+---
+
+# Writing Blog Posts in MDX Format - Complete Guide
+
+## Frontmatter Metadata
+
+Every MDX file must start with YAML frontmatter between triple dashes:
+
+```yaml
+---
+title: 'Your Blog Post Title'
+date: '2024-01-15'
+tags: ['tag1', 'tag2', 'tag3']
+draft: false
+summary: 'Brief description of your post content'
+authors: ['author-name'] # optional
+---
+```
+
+### Required Metadata Fields:
+
+- `title`: Blog post title
+- `date`: Publication date (YYYY-MM-DD format)
+- `tags`: Array of topic tags
+- `draft`: Boolean (true/false)
+- `summary`: Brief description for previews
+
+### Optional Metadata:
+
+- `authors`: Array of author identifiers
+
+## Supported Markdown Elements
+
+### 1. Headers
+
+```markdown
+# H1 Header
+
+## H2 Header
+
+### H3 Header
+
+#### H4 Header
+```
+
+### 2. Text Emphasis
+
+```markdown
+_Italic text_
+**Bold text**
+_You **can** combine them_
+~~Strikethrough text~~
+```
+
+### 3. Lists
+
+```markdown
+# Unordered List
+
+- Item 1
+- Item 2
+  - Nested item 2a
+  - Nested item 2b
+
+# Ordered List
+
+1. Item 1
+2. Item 2
+3. Item 3
+   1. Nested item 3a
+   2. Nested item 3b
+```
+
+### 4. Links and Images
+
+```markdown
+# Links
+
+[Link text](https://example.com)
+https://example.com - automatic link
+
+# Images (optimized via Next.js Image component)
+
+![Alt text](/static/images/image-name.jpg)
+```
+
+### 5. Code Blocks with Syntax Highlighting
+
+````markdown
+# Inline code
+
+Use `const variable = 'value'` in JavaScript
+
+# Code blocks with language specification
+
+```javascript
+function greet(name) {
+  return `Hello, ${name}!`
+}
+```
+````
+
+```python
+def fibonacci(n):
+    if n <= 1:
+        return n
+    return fibonacci(n-1) + fibonacci(n-2)
+```
+
+````
+
+### 6. Blockquotes
+```markdown
+> This is a blockquote.
+> It can span multiple lines.
+````
+
+### 7. Task Lists
+
+```markdown
+- [x] Completed task
+- [ ] Incomplete task
+- [x] Another completed item
+```
+
+### 8. Tables
+
+```markdown
+| Header 1 | Header 2 | Header 3 |
+| -------- | -------- | -------- |
+| Cell 1   | Cell 2   | Cell 3   |
+| Cell 4   | Cell 5   | Cell 6   |
+```
+
+### 9. Footnotes
+
+```markdown
+Here's a sentence with a footnote[^1].
+
+[^1]: This is the footnote content.
+```
+
+## CSS Rendering Features
+
+The blog supports:
+
+- **Syntax highlighting** via `mdx-prism` for code blocks
+- **Responsive images** via Next.js Image component (automatic WebP conversion)
+- **Typography styling** via Tailwind CSS classes
+- **Dark mode support** for all elements
+- **Mobile-responsive** tables and code blocks
+
+## Complete Example
+
+````yaml
+---
+title: 'My First Blog Post'
+date: '2024-01-15'
+tags: ['tutorial', 'markdown', 'mdx']
+draft: false
+summary: 'A comprehensive guide to writing MDX blog posts'
+authors: ['default']
+---
+
+# My First Blog Post
+
+## Introduction
+
+This post demonstrates **all** the supported markdown elements and how they're rendered with CSS styling.
+
+## Code Examples
+
+Here's some JavaScript code:
+
+```javascript:example.js
+function calculateSum(a, b) {
+  return a + b;
+}
+
+console.log(calculateSum(5, 3)); // Output: 8
+````
+
+## Key Features
+
+- [x] Syntax highlighting
+- [x] Responsive design
+- [ ] Interactive elements (not supported)
+
+> "The best way to learn is by doing." - Anonymous
+
+## Data Table
+
+| Feature | Status | Notes                |
+| ------- | ------ | -------------------- |
+| Headers | ✅     | All levels supported |
+| Tables  | ✅     | Responsive on mobile |
+| Images  | ✅     | Auto-optimized       |
+
+[^1]: Footnotes are great for references and citations.
+
+```
+
+This structure ensures your blog posts will render properly with all styling and optimizations applied by the CSS framework.
+
+## Best Practices
+
+1. **Always include proper frontmatter** - Missing metadata will cause rendering issues
+2. **Use descriptive summaries** - These appear in blog previews and social media
+3. **Test code blocks** - Ensure syntax highlighting works correctly
+4. **Optimize images** - Store in `/static/images/` folder for Next.js optimization
+5. **Use semantic headers** - Start with H1, then H2, H3 in order
+6. **Add relevant tags** - Helps with content categorization and discovery
+
+## Troubleshooting
+
+- **Images not loading?** Ensure they're in the `/public/static/images/` directory
+- **Code not highlighting?** Check language specification in code blocks
+- **Table not responsive?** Use proper markdown table syntax
+- **Post not appearing?** Check that `draft: false` in frontmatter
+
+Happy blogging! 🎉
+```

@@ -1,0 +1,263 @@
+---
+title: 'Adding Images to Blog Posts - Complete Guide'
+date: '2026-01-28'
+tags: ['images', 'tutorial', 'nextjs', 'mdx']
+draft: false
+summary: 'Learn how to add, optimize, and style images in your MDX blog posts with Next.js Image component and responsive layouts'
+authors: ['default']
+images: ['/static/images/canada/mountains.jpg']
+---
+
+# Adding Images to Blog Posts - Complete Guide
+
+## Overview
+
+This blog uses Next.js Image component for automatic image optimization, providing WebP conversion, responsive sizing, and lazy loading. Images are automatically processed for better performance and user experience.
+
+## Image Storage Location
+
+All images must be stored in the `/public/static/images/` directory:
+
+```
+public/
+└── static/
+    └── images/
+        ├── your-image.jpg
+        ├── gallery/
+        │   ├── photo1.jpg
+        │   └── photo2.jpg
+        └── canada/
+            ├── mountains.jpg
+            └── maple.jpg
+```
+
+## Basic Image Usage
+
+### Method 1: Standard Markdown Syntax
+
+The simplest way to add images is using standard markdown syntax:
+
+```markdown
+![Alt text](/static/images/your-image.jpg)
+```
+
+**Example:**
+
+```markdown
+![Mountains](/static/images/canada/mountains.jpg)
+```
+
+**Rendered Result:**
+
+![Mountains](/static/images/canada/mountains.jpg)
+
+### Method 2: Direct Next.js Image Component
+
+For more control, use the Next.js Image component directly in MDX:
+
+```jsx
+<Image alt="Description of image" src="/static/images/your-image.jpg" width={800} height={600} />
+```
+
+## Frontmatter Image Metadata
+
+You can specify images in the frontmatter for social media previews and SEO:
+
+```yaml
+---
+title: 'Your Blog Post'
+date: '2024-01-28'
+tags: ['tutorial']
+draft: false
+summary: 'Blog post description'
+images: ['/static/images/your-image.jpg']
+---
+```
+
+Multiple images can be specified:
+
+```yaml
+images: ['/static/images/image1.jpg', '/static/images/image2.jpg']
+```
+
+## Responsive Image Grids
+
+Create beautiful image galleries using Tailwind CSS classes with MDX:
+
+### Two-Column Grid
+
+```jsx
+<div className="-mx-2 flex flex-wrap overflow-hidden xl:-mx-2">
+  <div className="my-1 w-full overflow-hidden px-2 xl:my-1 xl:w-1/2 xl:px-2">
+    ![Image 1](/static/images/gallery/photo1.jpg)
+  </div>
+  <div className="my-1 w-full overflow-hidden px-2 xl:my-1 xl:w-1/2 xl:px-2">
+    ![Image 2](/static/images/gallery/photo2.jpg)
+  </div>
+</div>
+```
+
+### Three-Column Grid
+
+```jsx
+<div className="-mx-2 flex flex-wrap overflow-hidden xl:-mx-2">
+  <div className="my-1 w-full overflow-hidden px-2 xl:my-1 xl:w-1/3 xl:px-2">
+    ![Image 1](/static/images/gallery/photo1.jpg)
+  </div>
+  <div className="my-1 w-full overflow-hidden px-2 xl:my-1 xl:w-1/3 xl:px-2">
+    ![Image 2](/static/images/gallery/photo2.jpg)
+  </div>
+  <div className="my-1 w-full overflow-hidden px-2 xl:my-1 xl:w-1/3 xl:px-2">
+    ![Image 3](/static/images/gallery/photo3.jpg)
+  </div>
+</div>
+```
+
+## Live Example: Two-Column Image Grid
+
+Here's a live example of a responsive two-column image grid:
+
+<div className="-mx-2 flex flex-wrap overflow-hidden xl:-mx-2">
+  <div className="my-1 w-full overflow-hidden px-2 xl:my-1 xl:w-1/2 xl:px-2">
+    ![Maple](/static/images/canada/maple.jpg)
+  </div>
+  <div className="my-1 w-full overflow-hidden px-2 xl:my-1 xl:w-1/2 xl:px-2">
+    ![Lake](/static/images/canada/lake.jpg)
+  </div>
+</div>
+
+## Complete Example: Photo Gallery
+
+Here's a complete example showing how to create a photo gallery:
+
+````jsx
+---
+title: 'Photo Gallery Example'
+date: '2024-01-28'
+tags: ['gallery', 'images']
+draft: false
+summary: 'A beautiful photo gallery with responsive grid layout'
+images: ['/static/images/canada/mountains.jpg']
+---
+
+# Photo Gallery
+
+<div className="-mx-2 flex flex-wrap overflow-hidden xl:-mx-2">
+  <div className="my-1 w-full overflow-hidden px-2 xl:my-1 xl:w-1/2 xl:px-2">
+    ![Maple](/static/images/canada/maple.jpg)
+  </div>
+  <div className="my-1 w-full overflow-hidden px-2 xl:my-1 xl:w-1/2 xl:px-2">
+    ![Lake](/static/images/canada/lake.jpg)
+  </div>
+  <div className="my-1 w-full overflow-hidden px-2 xl:my-1 xl:w-1/2 xl:px-2">
+    ![Mountains](/static/images/canada/mountains.jpg)
+  </div>
+  <div className="my-1 w-full overflow-hidden px-2 xl:my-1 xl:w-1/2 xl:px-2">
+    ![Toronto](/static/images/canada/toronto.jpg)
+  </div>
+</div>
+
+## Implementation Code
+
+```jsx
+<div className="-mx-2 flex flex-wrap overflow-hidden xl:-mx-2">
+  <div className="my-1 w-full overflow-hidden px-2 xl:my-1 xl:w-1/2 xl:px-2">
+    ![Maple](/static/images/canada/maple.jpg)
+  </div>
+  <div className="my-1 w-full overflow-hidden px-2 xl:my-1 xl:w-1/2 xl:px-2">
+    ![Lake](/static/images/canada/lake.jpg)
+  </div>
+  <div className="my-1 w-full overflow-hidden px-2 xl:my-1 xl:w-1/2 xl:px-2">
+    ![Mountains](/static/images/canada/mountains.jpg)
+  </div>
+  <div className="my-1 w-full overflow-hidden px-2 xl:my-1 xl:w-1/2 xl:px-2">
+    ![Toronto](/static/images/canada/toronto.jpg)
+  </div>
+</div>
+````
+
+## Image Optimization Features
+
+The Next.js Image component provides:
+
+- **Automatic WebP conversion** - ~30% smaller file sizes
+- **Responsive images** - Correct size served based on viewport
+- **Lazy loading** - Images load as you scroll
+- **Layout shift prevention** - Avoids Cumulative Layout Shift (CLS)
+- **On-demand optimization** - No increase in build time
+
+## Best Practices
+
+### 1. Use Descriptive Alt Text
+
+```markdown
+![A beautiful sunset over mountains](/static/images/sunset.jpg)
+```
+
+**Example:**
+
+![A beautiful sunset over mountains](/static/images/canada/lake.jpg)
+
+### 2. Organize Images in Folders
+
+```
+public/static/images/
+├── blog-posts/
+├── gallery/
+└── assets/
+```
+
+### 3. Use Appropriate Image Sizes
+
+- Optimize images before uploading
+- Use JPEG for photos, PNG for graphics
+- Consider WebP format for better compression
+
+### 4. Add Image Credits
+
+```jsx
+<div>
+  Photo by [Photographer Name](https://unsplash.com/@username) on [Unsplash](https://unsplash.com)
+</div>
+```
+
+## Troubleshooting
+
+### Images Not Loading?
+
+- Check file path: `/static/images/your-image.jpg`
+- Ensure image is in `/public/static/images/` directory
+- Verify file name spelling and case sensitivity
+
+### Images Not Optimized?
+
+- Only local images are optimized
+- External URLs won't use Next.js Image component
+- Ensure `imgToJsx` is enabled in `lib/mdx.js`
+
+### Layout Issues?
+
+- Use responsive grid classes
+- Test on different screen sizes
+- Check Tailwind CSS class syntax
+
+## External Images
+
+For external images (from CDNs, Unsplash, etc.), use standard HTML img tags:
+
+```html
+<img src="https://example.com/image.jpg" alt="Description" className="rounded-lg" />
+```
+
+Note: External images won't get Next.js optimization benefits.
+
+## Summary
+
+- Store images in `/public/static/images/`
+- Use markdown syntax for simple images
+- Create responsive grids with Tailwind CSS
+- Add descriptive alt text for accessibility
+- Credit photographers when using external images
+- Test on different screen sizes
+
+Happy image blogging! 📸
