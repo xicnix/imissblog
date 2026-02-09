@@ -1,13 +1,11 @@
-![tailwind-nextjs-banner](/public/static/images/twitter-card.png)
+![tailwind-nextjs-banner](/public/static/images/imissblog-card.png)
 
-# Tailwind Nextjs Starter Blog
+# ImissBlog
 
-[![GitHub Repo stars](https://img.shields.io/github/stars/timlrx/tailwind-nextjs-starter-blog?style=social)](https://GitHub.com/timlrx/tailwind-nextjs-starter-blog/stargazers/)
-[![GitHub forks](https://img.shields.io/github/forks/timlrx/tailwind-nextjs-starter-blog?style=social)](https://github.com/timlrx/tailwind-nextjs-starter-blog/forks)
-[![Twitter URL](https://img.shields.io/twitter/url?style=social&url=https%3A%2F%2Ftwitter.com%2Ftimlrxx)](https://x.com/timlrxx)
-[![Sponsor](https://img.shields.io/static/v1?label=Sponsor&message=%E2%9D%A4&logo=GitHub&link=https://github.com/sponsors/timlrx)](https://github.com/sponsors/timlrx)
+[![GitHub Repo stars](https://img.shields.io/github/stars/xicnix/imissblog?style=social)](https://GitHub.com/xicnix/imissblog/stargazers/)
+[![GitHub forks](https://img.shields.io/github/forks/xicnix/imissblog?style=social)](https://github.com/xicnix/imissblog/forks)
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/timlrx/tailwind-nextjs-starter-blog)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/xicnix/imissblog)
 
 This is a [Next.js](https://nextjs.org/), [Tailwind CSS](https://tailwindcss.com/) blogging starter template. Version 2 is based on Next App directory with [React Server Component](https://nextjs.org/docs/getting-started/react-essentials#server-components) and uses [Contentlayer](https://www.contentlayer.dev/) to manage markdown content.
 
@@ -15,7 +13,7 @@ Probably the most feature-rich Next.js markdown blogging template out there. Eas
 
 Check out the documentation below to get started.
 
-Facing issues? Check the [FAQ page](https://github.com/timlrx/tailwind-nextjs-starter-blog/wiki) and do a search on past issues. Feel free to open a new issue if none has been posted previously.
+Facing issues? Check the [FAQ page](https://github.com/xicnix/imissblog/wiki) and do a search on past issues. Feel free to open a new issue if none has been posted previously.
 
 Feature request? Check the past discussions to see if it has been brought up previously. Otherwise, feel free to start a new discussion thread. All ideas are welcomed!
 
@@ -31,7 +29,7 @@ Internationalization support - [Template with i18n](https://tailwind-nextjs-star
 
 ## Examples V2
 
-- [Demo Blog](https://tailwind-nextjs-starter-blog.vercel.app/) - this repo
+- [Demo Blog](https://imissblog.vercel.app/) - this repo
 - [My personal blog](https://www.timlrx.com) - modified to auto-generate blog posts with dates
 - [Karhdo's Blog](https://karhdo.dev) - Karhdo's Blog - Karhdo's Coding Adventure ([source code](https://github.com/Karhdo/karhdo.dev))
 - [SOTO's Blog](https://www.atksoto.com/) - A more personalized personal website upgraded from V1 ([source code](https://github.com/acsoto/soto-blog-nextjs))
@@ -165,19 +163,19 @@ I wanted it to be nearly as feature-rich as popular blogging templates like [bea
 
 ## Sample posts
 
-- [A markdown guide](https://tailwind-nextjs-starter-blog.vercel.app/blog/github-markdown-guide)
-- [Learn more about images in Next.js](https://tailwind-nextjs-starter-blog.vercel.app/blog/guide-to-using-images-in-nextjs)
-- [A tour of math typesetting](https://tailwind-nextjs-starter-blog.vercel.app/blog/deriving-ols-estimator)
-- [Simple MDX image grid](https://tailwind-nextjs-starter-blog.vercel.app/blog/pictures-of-canada)
-- [Example of long prose](https://tailwind-nextjs-starter-blog.vercel.app/blog/the-time-machine)
-- [Example of Nested Route Post](https://tailwind-nextjs-starter-blog.vercel.app/blog/nested-route/introducing-multi-part-posts-with-nested-routing)
+- [A markdown guide](https://imissblog.vercel.app/blog/github-markdown-guide)
+- [Learn more about images in Next.js](https://imissblog.vercel.app/blog/guide-to-using-images-in-nextjs)
+- [A tour of math typesetting](https://imissblog.vercel.app/blog/deriving-ols-estimator)
+- [Simple MDX image grid](https://imissblog.vercel.app/blog/pictures-of-canada)
+- [Example of long prose](https://imissblog.vercel.app/blog/the-time-machine)
+- [Example of Nested Route Post](https://imissblog.vercel.app/blog/nested-route/introducing-multi-part-posts-with-nested-routing)
 
 ## Quick Start Guide
 
 1. Clone the repo
 
 ```bash
-npx degit 'timlrx/tailwind-nextjs-starter-blog'
+npx degit 'xicnix/imissblog'
 ```
 
 2. Personalize `siteMetadata.js` (site related information)
@@ -337,8 +335,8 @@ Consider removing the following features that cannot be used in a static build:
 
 ## Support
 
-Using the template? Support this effort by giving a star on GitHub, sharing your own blog and giving a shoutout on Twitter or becoming a project [sponsor](https://github.com/sponsors/timlrx).
+Using the template? Support this effort by giving a star on GitHub, sharing your own blog and giving a shoutout on Twitter or becoming a project [sponsor](https://github.com/sponsors/ticnix).
 
 ## Licence
 
-[MIT](https://github.com/timlrx/tailwind-nextjs-starter-blog/blob/main/LICENSE) © [Timothy Lin](https://www.timlrx.com)
+[MIT](https://github.com/xicnix/imissblog/blob/main/LICENSE) © [Xichen Ni](https://www.xichen.dev)
