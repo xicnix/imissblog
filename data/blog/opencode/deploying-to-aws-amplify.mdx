@@ -1,0 +1,321 @@
+---
+title: 'Deploying ImissBlog to AWS Amplify - Complete Guide'
+date: '2026-03-18'
+lastmod: '2026-03-18'
+tags: ['aws', 'amplify', 'deployment', 'tutorial']
+draft: false
+summary: 'Learn how to deploy your Next.js blog to AWS Amplify with a code-first backend using TypeScript'
+authors: ['default']
+---
+
+# Deploying ImissBlog to AWS Amplify - Complete Guide
+
+## Introduction
+
+AWS Amplify Gen 2 provides a powerful, code-first approach to building fullstack applications. In this guide, we'll walk through deploying the ImissBlog template to AWS Amplify, leveraging its TypeScript-based backend configuration and seamless integration with Next.js.
+
+## Prerequisites
+
+Before you begin, ensure you have:
+
+- **Node.js** v20.x or later
+- **AWS account** with appropriate permissions
+- **AWS CLI** configured with your credentials
+- **Yarn** or **npm** package manager
+
+To install the Amplify CLI:
+
+```bash
+npm install -g @aws-amplify/backend-cli
+# or
+yarn global add @aws-amplify/backend-cli
+```
+
+## Project Structure Overview
+
+The Amplify backend is configured in the `amplify/` directory:
+
+```
+amplify/
+├── backend.ts          # Backend definition entry point
+├── auth/
+│   └── resource.ts     # Authentication configuration
+├── data/
+│   └── resource.ts     # Data schema and configuration
+├── package.json        # Backend dependencies
+└── tsconfig.json       # TypeScript configuration
+```
+
+### Backend Definition (`backend.ts`)
+
+```typescript
+import { defineBackend } from '@aws-amplify/backend'
+import { auth } from './auth/resource'
+import { data } from './data/resource'
+
+defineBackend({
+  auth,
+  data,
+})
+```
+
+This creates two core resources: authentication and a data API.
+
+## Auth Configuration (Email-based Login)
+
+The authentication configuration is defined in `auth/resource.ts`:
+
+```typescript
+import { defineAuth } from '@aws-amplify/backend'
+
+export const auth = defineAuth({
+  loginWith: {
+    email: true,
+  },
+})
+```
+
+**Features:**
+
+- Email-based authentication with OTP verification
+- Guest access support for unauthenticated users
+- Uses Amazon Cognito User Pools under the hood
+
+To extend with password-based login:
+
+```typescript
+export const auth = defineAuth({
+  loginWith: {
+    email: {
+      verificationEmailStyle: 'CODE',
+    },
+    password: true,
+  },
+})
+```
+
+## Data Schema (Todo Model)
+
+The data configuration in `data/resource.ts` defines our data model:
+
+```typescript
+import { type ClientSchema, a, defineData } from '@aws-amplify/backend'
+
+const schema = a.schema({
+  Todo: a
+    .model({
+      content: a.string(),
+    })
+    .authorization((allow) => [allow.guest()]),
+})
+
+export const data = defineData({
+  schema,
+  authorizationModes: {
+    defaultAuthorizationMode: 'identityPool',
+  },
+})
+```
+
+**Schema Fields:**
+
+- `id`: Auto-generated unique identifier
+- `content`: The todo item content (string)
+- `createdAt`: Timestamp (auto-generated)
+- `updatedAt`: Timestamp (auto-generated)
+
+**Authorization**: `allow.guest()` permits unauthenticated users to perform CRUD operations.
+
+## Deployment Steps
+
+### Step 1: Install Backend Dependencies
+
+```bash
+cd amplify
+npm install
+# or
+yarn
+```
+
+### Step 2: Type Check
+
+```bash
+npx tsc --noEmit
+```
+
+Fix any TypeScript errors before proceeding.
+
+### Step 3: Deploy Backend
+
+```bash
+# From project root
+amplify push
+```
+
+This command:
+
+1. Builds your backend TypeScript code
+2. Creates AWS CloudFormation stack
+3. Deploys resources to your AWS account
+4. Generates `amplify_outputs.json` with configuration
+
+### Step 4: Verify Deployment
+
+```bash
+# Check deployment status
+amplify status
+
+# View resource outputs
+cat amplify/backend/amplify_outputs.json
+```
+
+## Frontend Integration
+
+### Install AWS Amplify Client
+
+```bash
+npm install aws-amplify
+# or
+yarn add aws-amplify
+```
+
+### Configure Amplify in Next.js
+
+Create a provider component to configure Amplify:
+
+```typescript
+// app/providers.tsx
+'use client'
+
+import { Amplify } from 'aws-amplify'
+import outputs from '@/amplify_outputs.json'
+
+Amplify.configure(outputs)
+
+export function Providers({ children }: { children: React.ReactNode }) {
+  return children
+}
+```
+
+Update your root layout:
+
+```typescript
+// app/layout.tsx
+import { Providers } from './providers'
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en">
+      <body>
+        <Providers>{children}</Providers>
+      </body>
+    </html>
+  )
+}
+```
+
+### Make API Calls
+
+Now you can use Amplify's Data client in your frontend:
+
+```typescript
+'use client'
+import { generateClient } from 'aws-amplify/data'
+import type { Schema } from '@/amplify/data/resource'
+
+const client = generateClient<Schema>()
+
+// Create a todo
+const newTodo = await client.models.Todo.create({
+  content: 'Learn AWS Amplify',
+})
+
+// List all todos
+const { data: todos } = await client.models.Todo.list()
+```
+
+## Environment Management
+
+### Create Multiple Environments
+
+```bash
+# Create development environment
+amplify env add --env dev
+
+# Create production environment
+amplify env add --env prod
+
+# Deploy to specific environment
+amplify push --env prod
+```
+
+### Team Collaboration
+
+```bash
+# Push backend changes
+amplify push
+
+# Team members pull the configuration
+amplify pull --appId <app-id> --envName <env-name>
+```
+
+## Common CLI Commands
+
+| Command                  | Description                |
+| ------------------------ | -------------------------- |
+| `amplify push`           | Deploy all resources       |
+| `amplify status`         | View resource status       |
+| `amplify delete`         | Delete all resources       |
+| `amplify env list`       | List environments          |
+| `amplify env switch`     | Switch environments        |
+| `amplify pull`           | Pull backend configuration |
+| `amplify generate types` | Generate TypeScript types  |
+
+## Troubleshooting
+
+### Common Issues
+
+**Issue**: `Cannot find module '@aws-amplify/backend'`
+
+**Solution**: Install backend dependencies
+
+```bash
+cd amplify
+npm install
+```
+
+**Issue**: `User is not authorized to perform cloudformation:CreateStack`
+
+**Solution**: Ensure AWS credentials have proper IAM permissions for:
+
+- CloudFormation
+- Cognito
+- DynamoDB
+- API Gateway
+- IAM
+- Lambda
+- S3
+
+**Issue**: TypeScript compilation errors
+
+**Solution**: Run `npx tsc --noEmit` to see errors and fix them before deploying
+
+## Conclusion
+
+Deploying ImissBlog to AWS Amplify provides a powerful fullstack solution with:
+
+- **Type-safe backend** with TypeScript
+- **Serverless infrastructure** on AWS
+- **Automatic scaling** and management
+- **Seamless Next.js integration**
+
+The code-first approach makes it easy to version control your infrastructure and maintain consistency across environments.
+
+## Next Steps
+
+- Explore adding storage for file uploads
+- Integrate with your existing blog content
+- Add custom business logic with Lambda functions
+- Set up CI/CD for automated deployments
+
+For more information, check out the [Amplify Documentation](https://docs.amplify.aws/).
